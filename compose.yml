@@ -1,0 +1,29 @@
+services:
+  app:
+    image: quotes-handler.jar
+    hostname: localhost
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+#    build:
+#      context: .
+#    container_name: app
+#    depends_on:
+#      - db
+#    volumes:
+#      - ./scripts:/h2-scripts
+#    command: [ "-url", "jdbc:h2:tcp://h2-database:9092/mem:test;DB_CLOSE_DELAY=-1;TRACE_LEVEL_FILE=4", "-user", "sa", "-password", "password", "-script", "/h2-scripts/setup.sql" ]
+#
+#  db:
+#    image: oscarfonts/h2
+#    ports:
+#      - 8082:8082
+#    container_name: db
+#    volumes:
+#      - ./data:/h2-data
+#      - ./scripts:/h2-scripts
+#    environment:
+#      H2_OPTIONS: ifNotExists
+#      H2_TCP_PORT: 9092
+#      H2_WEB_PORT: 8082
