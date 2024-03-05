@@ -1,6 +1,41 @@
-To run the application locally need to copy repository, start docker and open cmd.
-You need to move to program directory and enter command: "mvn clean install", which will create jar file quotes-handler.jar. 
-Further, need to build docker container: "docker build -t quotes-handler.jar ."
-Now, you need to enter command "docker-compose up -d".
-You can watch on endpoints by address "http://localhost:8080/swagger-ui.html".
-For stopping programm need to enter command "docker-compose down"
+<h1>API для  управления и распределения различных цитат или текстовых выражений.</h1> 
+<h3></h3>Программа позволяет добавлять в базу данных цитату, обновлять ее, голосовать за нее,
+то есть увеличивать ее популярность. Также можно получить самое популярные и непопулярные цитаты 
+и смотреть то, как менялись голоса за определенную цитату за некоторый промежуток времени.</h3>
+
+<h2>Шаги для установки:</h2><br>
+1.Клонирование приложения<br>
+`git clone https://github.com/564522as/QuotesHandler`<br>
+2.Запустить приложение с использованием maven<br>
+- mvn spring-boot:run
+Создавать локально базу данных нет необходимости, так как используется СУБД h2.
+При запуске программы автоматически выполнится файл src/main/resources/schema.sql
+Приложение запустится на локальном хосте - "http://localhost:8080"<br><br>
+
+<p>Чтобы добавить пользователя нужно указать его имя, почту и пароль</p>
+
+POST /user/add
+```
+{
+  "name": "string",
+  "email": "string",
+  "password": "string"
+}
+```
+
+Примеры запросов для работы с цитатами:<br>
+POST /quotes/add<br>
+```
+{
+  "content": "string",
+  "authorEmail": "string"
+}
+```
+POST /quotes/upvote?id=0 - указывается id цитаты и количество голосов за него увеличивается<br>
+POST /quotes/downvote?id=0 - указывается id цитаты и количество голосов за него уменьшается<br>
+GET /quotes/getEvolutionOfQuotes - возвращает массив с историей об изменении количества голосов за цитату<br>
+GET /quotes/getRandom - возвращет случайную цитату из базы данных<br>
+GET /quotes/getTop - возвращает самые популярные цитаты<br>
+GET /quotes/getWorse - возвращает цитаты с низким рейтингом<br>
+
+<p>Полное описание api - http://localhost:8080/swagger-ui.html</p>
